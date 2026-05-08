@@ -2,9 +2,9 @@ package com.test.blog_spring.controller;
 
 import com.test.blog_spring.dto.BoardRequest;
 import com.test.blog_spring.dto.BoardResponse;
-import com.test.blog_spring.entity.Board;
 import com.test.blog_spring.entity.User;
 import com.test.blog_spring.service.BoardService;
+import com.test.blog_spring.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,14 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService bs;
+    private final CommentService cs;
 
     @GetMapping("/")
     public String index() {
@@ -55,6 +53,10 @@ public class BoardController {
         if (sessionUser != null && sessionUser.getId().equals(board.getUserId())) {
             mo.addAttribute("isOwner", true);
         }
+
+        Integer sessionUserId = sessionUser != null ? sessionUser.getId() : null;
+        mo.addAttribute("comments", cs.findAllByBoardIdJoinUser(id, sessionUserId));
+
         return "board/detail";
     }
 
