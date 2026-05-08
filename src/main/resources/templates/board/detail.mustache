@@ -71,6 +71,7 @@
                 <div class="d-flex align-items-center gap-2">
                     <span class="badge rounded-pill px-2 py-1" style="background: #6366f1; font-size: 0.75rem;">{{username}}</span>
                     <span style="color: #334155;">{{content}}</span>
+                    <span class="text-muted" style="font-size: 0.75rem;">{{createdAt}}</span>
                 </div>
                 {{#myComment}}
                 <form action="/reply/{{id}}/delete" method="post">
@@ -78,6 +79,15 @@
                         <i class="fa fa-trash"></i>
                     </button>
                 </form>
+                {{/myComment}}
+                {{^myComment}}
+                {{#isOwner}}
+                <form action="/reply/{{id}}/delete" method="post">
+                    <button class="btn btn-sm btn-light text-danger rounded-pill px-2 py-1" style="font-size: 0.8rem;">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+                {{/isOwner}}
                 {{/myComment}}
             </div>
             {{/comments}}
