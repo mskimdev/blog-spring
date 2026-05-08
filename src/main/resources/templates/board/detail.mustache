@@ -1,0 +1,93 @@
+{{> layout/header}}
+<div class="container py-5 flex-grow-1" style="max-width: 860px;">
+
+    <!-- 게시글 카드 -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+        <div class="card-body p-4 p-md-5">
+
+            <!-- 제목 및 메타 -->
+            <h2 class="fw-bold mb-2" style="color: #1e1b4b;">{{board.title}}</h2>
+            <div class="d-flex align-items-center text-muted small mb-4 gap-3">
+                <span><i class="fa fa-user me-1"></i>{{board.username}}</span>
+                <span><i class="fa fa-calendar me-1"></i>{{board.createdAt}}</span>
+            </div>
+
+            <hr class="my-3" style="border-color: #e2e8f0;">
+
+            <!-- 본문 -->
+            <div class="py-2" style="line-height: 1.9; color: #334155; min-height: 120px; white-space: pre-wrap;">{{board.content}}</div>
+        </div>
+
+        <!-- 수정/삭제 버튼 -->
+        <div class="card-footer bg-transparent border-top px-4 py-3 d-flex justify-content-between align-items-center" style="border-color: #e2e8f0;">
+            <a href="/board/list" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                <i class="fa fa-arrow-left me-1"></i>목록으로
+            </a>
+            {{#isOwner}}
+            <div class="d-flex gap-2">
+                <a href="/board/{{board.id}}/update-form" class="btn btn-sm btn-warning rounded-pill px-3">
+                    <i class="fa fa-pen me-1"></i>수정
+                </a>
+                <form action="/board/{{board.id}}/delete" method="post">
+                    <button class="btn btn-sm btn-danger rounded-pill px-3">
+                        <i class="fa fa-trash me-1"></i>삭제
+                    </button>
+                </form>
+            </div>
+            {{/isOwner}}
+        </div>
+    </div>
+
+    <!-- 댓글 섹션 -->
+    <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+        <div class="card-header bg-white px-4 py-3 border-bottom" style="border-color: #e2e8f0; border-radius: 16px 16px 0 0;">
+            <h6 class="fw-bold mb-0" style="color: #1e1b4b;">
+                <i class="fa fa-comments me-2" style="color: #6366f1;"></i>댓글
+            </h6>
+        </div>
+
+        <!-- 댓글 입력 -->
+        {{#sessionUser}}
+        <div class="card-body px-4 py-3 border-bottom" style="border-color: #e2e8f0;">
+            <form action="/reply/save" method="post">
+                <input type="hidden" name="boardId" value="{{board.id}}">
+                <div class="d-flex gap-2">
+                    <textarea class="form-control" rows="2" name="content"
+                              placeholder="댓글을 입력하세요..."
+                              style="resize: none; border-radius: 10px; border-color: #e2e8f0;"></textarea>
+                    <button type="submit" class="btn btn-primary px-3 align-self-end"
+                            style="background: #6366f1; border: none; border-radius: 10px; white-space: nowrap;">
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        {{/sessionUser}}
+
+        <!-- 댓글 목록 -->
+        <div class="list-group list-group-flush">
+            {{#comments}}
+            <div class="list-group-item px-4 py-3 d-flex justify-content-between align-items-center border-0">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge rounded-pill px-2 py-1" style="background: #6366f1; font-size: 0.75rem;">{{username}}</span>
+                    <span style="color: #334155;">{{content}}</span>
+                </div>
+                {{#myComment}}
+                <form action="/reply/{{id}}/delete" method="post">
+                    <button class="btn btn-sm btn-light text-danger rounded-pill px-2 py-1" style="font-size: 0.8rem;">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+                {{/myComment}}
+            </div>
+            {{/comments}}
+            {{^comments}}
+            <div class="px-4 py-4 text-center text-muted small">
+                첫 번째 댓글을 남겨보세요!
+            </div>
+            {{/comments}}
+        </div>
+    </div>
+</div>
+
+{{> layout/footer}}

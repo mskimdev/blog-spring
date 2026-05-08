@@ -1,0 +1,54 @@
+# Server Setting
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+  port: 8080
+
+# Logging Setting
+logging:
+  level:
+    root: INFO
+    com.tenco: DEBUG
+
+
+# Spring Setting
+spring:
+  # Mustache Setting
+  mustache:
+    servlet:
+      expose-session-attributes: false
+      expose-request-attributes: false
+
+  # DB Setting
+  datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:test
+      username: sa
+      password:
+
+  # H2 Setting
+  h2:
+    console:
+      enabled: true
+
+  # Initializing DB
+  sql:
+    init:
+      mode: always
+      data-locations:
+        - classpath:db/data.sql
+
+  # JPA Setting
+  jpa:
+    defer-datasource-initialization: true
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+

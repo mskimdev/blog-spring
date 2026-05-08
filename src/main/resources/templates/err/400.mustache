@@ -1,0 +1,18 @@
+{{> layout/header}}
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+    <div class="text-center">
+        <div class="mb-3" style="font-size: 5rem; font-weight: 800; color: #e2e8f0; line-height: 1;">400</div>
+        <h4 class="fw-bold mb-2" style="color: #1e1b4b;">잘못된 요청</h4>
+        <p class="text-muted mb-1">{{message}}</p>
+        <p class="text-muted small mb-4">요청이 올바르지 않습니다. 다시 시도해 주세요.</p>
+        <div class="d-flex justify-content-center gap-2">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="fa fa-arrow-left me-1"></i>이전 페이지
+            </a>
+            <a href="/" class="btn btn-primary rounded-pill px-4" style="background: #6366f1; border: none;">
+                <i class="fa fa-house me-1"></i>메인으로
+            </a>
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

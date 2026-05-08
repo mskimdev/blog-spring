@@ -1,0 +1,18 @@
+{{> layout/header}}
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+    <div class="text-center">
+        <div class="mb-3" style="font-size: 5rem; font-weight: 800; color: #e2e8f0; line-height: 1;">500</div>
+        <h4 class="fw-bold mb-2" style="color: #1e1b4b;">서버 오류가 발생했습니다</h4>
+        <p class="text-muted mb-1">{{message}}</p>
+        <p class="text-muted small mb-4">일시적인 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.</p>
+        <div class="d-flex justify-content-center gap-2">
+            <a href="javascript:location.reload()" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="fa fa-rotate-right me-1"></i>새로고침
+            </a>
+            <a href="/" class="btn btn-primary rounded-pill px-4" style="background: #6366f1; border: none;">
+                <i class="fa fa-house me-1"></i>메인으로
+            </a>
+        </div>
+    </div>
+</div>
+{{> layout/footer}}
