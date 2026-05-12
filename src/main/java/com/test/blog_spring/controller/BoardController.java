@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,12 +25,19 @@ public class BoardController {
         return "index";
     }
 
+    // 페이징 처리 주소 설계
     @GetMapping("/board/list")
-    public String boardList(Model mo){
+    public String boardList(Model mo,
+                            @RequestParam(value = "page", defaultValue = "1") Integer page,
+                            @RequestParam(value = "size", defaultValue = "5") Integer size){
 
-        mo.addAttribute("boardList", bs.findAllJoinUser());
+        System.out.println(page + " " + size);
+
+        mo.addAttribute("boardPage", bs.findAllJoinUser(page, size));
         return "board/list";
     }
+
+
 
     @GetMapping("/board/save-form")
     public String saveForm(){

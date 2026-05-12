@@ -12,7 +12,7 @@
         {{/sessionUser}}
     </div>
 
-    {{#boardList}}
+    {{#boardPage.list}}
     <div class="card mb-3 border-0 shadow-sm" style="border-radius: 12px; transition: transform 0.15s, box-shadow 0.15s;"
          onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.1)'"
          onmouseout="this.style.transform='';this.style.boxShadow=''">
@@ -28,29 +28,38 @@
             </a>
         </div>
     </div>
-    {{/boardList}}
+    {{/boardPage.list}}
 
-    {{^boardList}}
+    {{^boardPage.list}}
     <div class="text-center py-5 text-muted">
         <i class="fa fa-inbox" style="font-size: 3rem; opacity: 0.3;"></i>
         <p class="mt-3">아직 작성된 게시글이 없습니다.</p>
     </div>
-    {{/boardList}}
+    {{/boardPage.list}}
 
+    <!-- Pagination -->
     <nav class="mt-4">
         <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a href="" class="page-link rounded-start-pill">
+            <!-- 이전 페이지 버튼 (첫 페이지 disabled 처리)-->
+            <li class="page-item {{#boardPage.first}}disabled{{/boardPage.first}}">
+                <a href="/board/list?page={{boardPage.prevPage}}&size={{boardPage.size}}" class="page-link rounded-start-pill">
                     <i class="fa fa-chevron-left me-1"></i>이전
                 </a>
             </li>
-            <li class="page-item">
-                <a href="" class="page-link rounded-end-pill">
+
+            <!-- 페이지 번호 윈도우 (햔재 페이지 기준 앞뒤 2페이지 최대 5개 -->
+            {{#boardPage.pageItemNumbers}}
+                <li class="page-item {{#active}}active{{/active}}"><a href = "/board/list?page={{number}}&size={{boardPage.size}}" class="page-link">{{number}}</a></li>
+            {{/boardPage.pageItemNumbers}}
+
+            <li class="page-item {{#boardPage.last}}disabled{{/boardPage.last}}">
+                <a href="/board/list?page={{boardPage.nextPage}}&size={{boardPage.size}}" class="page-link rounded-end-pill">
                     다음<i class="fa fa-chevron-right ms-1"></i>
                 </a>
             </li>
         </ul>
     </nav>
+    <!-- pagination end -->
 </div>
 
 {{> layout/footer}}
