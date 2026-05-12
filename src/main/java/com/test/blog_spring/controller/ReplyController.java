@@ -1,9 +1,9 @@
 package com.test.blog_spring.controller;
 
 
-import com.test.blog_spring.dto.CommentRequest;
+import com.test.blog_spring.dto.ReplyRequest;
 import com.test.blog_spring.entity.User;
-import com.test.blog_spring.service.CommentService;
+import com.test.blog_spring.service.ReplyService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class CommentController {
+public class ReplyController {
 
-    private final CommentService cs;
+    private final ReplyService cs;
 
     @PostMapping("/reply/{id}/delete")
     public String delete(@PathVariable Integer id, HttpSession session){
@@ -24,7 +24,7 @@ public class CommentController {
     }
 
     @PostMapping("/reply/save")
-    public String save(CommentRequest.SaveDTO saveDTO, HttpSession session){
+    public String save(ReplyRequest.SaveDTO saveDTO, HttpSession session){
         saveDTO.validate();
 
         User sessionUser = (User)session.getAttribute("sessionUser");

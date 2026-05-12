@@ -2,11 +2,11 @@ package com.test.blog_spring.dto;
 
 import com.test.blog_spring._core.errors.Exception400;
 import com.test.blog_spring.entity.Board;
-import com.test.blog_spring.entity.Comment;
+import com.test.blog_spring.entity.Reply;
 import com.test.blog_spring.entity.User;
 import lombok.Data;
 
-public class CommentRequest {
+public class ReplyRequest {
 
     @Data
     public static class ListDTO{
@@ -17,13 +17,13 @@ public class CommentRequest {
         private String createdAt;
         private boolean myComment;
 
-        public ListDTO(Comment comment, Integer sessionUserId){
-            this.id = comment.getId();
-            this.userId = comment.getUser().getId();
-            this.username = comment.getUser().getUsername();
-            this.content = comment.getContent();
-            this.createdAt = comment.getTime();
-            this.myComment = sessionUserId != null && comment.getUser().getId().equals(sessionUserId);
+        public ListDTO(Reply reply, Integer sessionUserId){
+            this.id = reply.getId();
+            this.userId = reply.getUser().getId();
+            this.username = reply.getUser().getUsername();
+            this.content = reply.getContent();
+            this.createdAt = reply.getTime();
+            this.myComment = sessionUserId != null && reply.getUser().getId().equals(sessionUserId);
         }
     }
 
@@ -44,8 +44,8 @@ public class CommentRequest {
                 throw new IllegalArgumentException("내용은 필수입니다.");
         }
 
-        public Comment toEntity(Board board, User user){
-            return Comment.builder()
+        public Reply toEntity(Board board, User user){
+            return Reply.builder()
                     .board(board)
                     .user(user)
                     .content(content)

@@ -4,7 +4,7 @@ import com.test.blog_spring.dto.BoardRequest;
 import com.test.blog_spring.dto.BoardResponse;
 import com.test.blog_spring.entity.User;
 import com.test.blog_spring.service.BoardService;
-import com.test.blog_spring.service.CommentService;
+import com.test.blog_spring.service.ReplyService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService bs;
-    private final CommentService cs;
+    private final ReplyService cs;
 
     @GetMapping("/")
     public String index() {
