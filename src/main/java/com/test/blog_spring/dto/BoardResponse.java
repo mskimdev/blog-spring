@@ -71,7 +71,7 @@ public class BoardResponse {
     } // end of PageDTO
 
     @Data
-    public static class PageItem{
+    private static class PageItem{
         private int number;
         private boolean active;
 

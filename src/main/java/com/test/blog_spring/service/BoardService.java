@@ -30,7 +30,7 @@ public class BoardService {
     private final BoardRepository br;
     private final ReplyRepository rr;
 
-    public BoardResponse.PageDTO findAllJoinUser(int page, int size) {
+    public BoardResponse.PageDTO findAllJoinUser(int page, int size, String keyword) {
         // 사용자가 음수값을 넣는 것을 방지
         int pageIndex = Math.max(0, page - 1);
         // 사용자가 임의로 많은 값을 던지는 것을 방지
@@ -50,7 +50,13 @@ public class BoardService {
         // getTotalElements() : 전체 항목 수
         // getTotalPage() : 전체 페이지 수
         // isFirst() / isLast() : 첫 페이지 / 마지막 페이지 여부
-        Page<Board> boardPage = br.findAllWithUserOrderByCreatedAtDesc(pageable);
+        Page<Board> boardPage;
+        if(keyword == null || keyword.isBlank()){
+            boardPage = br.findAllWithUserOrderByCreatedAtDesc(pageable);
+        } else {
+            boardPage = br.findByTitleContainingOrContentContaining(keyword.trim(), pageable);
+        }
+
 
 
         return new BoardResponse.PageDTO(boardPage);

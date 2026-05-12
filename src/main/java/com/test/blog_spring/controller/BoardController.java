@@ -29,11 +29,11 @@ public class BoardController {
     @GetMapping("/board/list")
     public String boardList(Model mo,
                             @RequestParam(value = "page", defaultValue = "1") Integer page,
-                            @RequestParam(value = "size", defaultValue = "5") Integer size){
+                            @RequestParam(value = "size", defaultValue = "5") Integer size,
+                            @RequestParam(value = "keyword", required = false) String keyword) {
 
-        System.out.println(page + " " + size);
-
-        mo.addAttribute("boardPage", bs.findAllJoinUser(page, size));
+        mo.addAttribute("boardPage", bs.findAllJoinUser(page, size, keyword));
+        mo.addAttribute("keyword", keyword != null ? keyword : "");
         return "board/list";
     }
 
