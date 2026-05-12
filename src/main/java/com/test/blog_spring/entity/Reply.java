@@ -13,11 +13,11 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "comment_tb")
+@Table(name = "reply_tb")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment {
+public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -34,7 +34,7 @@ INSERT INTO board_tb (title, content, user_id, created_at) VALUES
 INSERT INTO board_tb (title, content, user_id, created_at) VALUES
     ('맛집 추천 - 강남역 근처', '강남역 근처에서 점심 먹기 좋은 맛집들을 추천드립니다. 가성비도 좋아요!', 5, NOW());
 
-INSERT INTO comment_tb (board_id, user_id, content, created_at) VALUES
+INSERT INTO reply_tb (board_id, user_id, content, created_at) VALUES
     (1, 2, '블로그 오픈 축하드립니다!', NOW()),
     (1, 3, '좋은 공간이 될 것 같아요 :)', NOW()),
     (1, 4, '반갑습니다~ 자주 올게요!', NOW()),
