@@ -32,6 +32,10 @@ public class User {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    // User 테이블에는 이미지 파일명만 저장할 예정 (실제 데이터는 서버 컴퓨터 로컬에 저장할 예정)
+    // 프로필 이미지는 회원가입시 선택사항 (nullable)
+    private String profileImg;
+
 
     public void validate() {
         if(username == null || username.trim().isEmpty()) {
@@ -44,7 +48,9 @@ public class User {
     }
 
     // User Update
-    public void update(UserRequest.UpdateDTO updateDTO) {
+    public void update(UserRequest.UpdateDTO updateDTO, String newProfileImg) {
+
         this.password = updateDTO.getPassword();
+        this.profileImg = newProfileImg;
     }
 }

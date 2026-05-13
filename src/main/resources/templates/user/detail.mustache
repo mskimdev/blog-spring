@@ -1,0 +1,47 @@
+{{> layout/header}}
+<div class="container py-5 flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <!-- 프로필 카드 -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+                <div class="card-body p-4 p-md-5 text-center">
+                    <img src="{{#user.profileImg}}/images/{{user.profileImg}}{{/user.profileImg}}{{^user.profileImg}}/images/default-profile.png{{/user.profileImg}}"
+                         alt="프로필 이미지"
+                         style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #e2e8f0;">
+                    <h5 class="fw-bold mt-3 mb-1" style="color: #1e1b4b;">{{user.username}}</h5>
+                    <p class="text-muted small mb-0">{{user.email}}</p>
+                </div>
+            </div>
+
+            <!-- 내 정보 -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3" style="color: #1e1b4b;">내 정보</h6>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <span class="text-muted small">아이디</span>
+                        <span class="fw-semibold">{{user.username}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2">
+                        <span class="text-muted small">이메일</span>
+                        <span class="fw-semibold">{{user.email}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 액션 버튼 -->
+            <div class="d-flex gap-2">
+                <a href="/user/update-form" class="btn fw-semibold flex-fill py-2"
+                   style="background: #6366f1; color: #fff; border-radius: 10px; border: none;">
+                    <i class="fa fa-pen me-1"></i>회원정보 수정
+                </a>
+                <a href="/logout" class="btn btn-outline-secondary fw-semibold flex-fill py-2"
+                   style="border-radius: 10px;">
+                    <i class="fa fa-right-from-bracket me-1"></i>로그아웃
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

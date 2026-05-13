@@ -8,7 +8,30 @@
         </div>
         <div class="card border-0 shadow-sm" style="border-radius: 16px;">
             <div class="card-body p-4 p-md-5">
-                <form action="/user/update" method="post">
+                <form action="/user/update" method="post" enctype="multipart/form-data">
+                    <!-- 프로필 이미지 표시 -->
+                    <input type="hidden" name="deleteProfileImg" id="deleteProfileImgFlag" value="false">
+                    <div class="mb-4 text-center">
+                        <div class="position-relative d-inline-block">
+                            <img id="profilePreview"
+                                 src="{{#user.profileImg}}/images/{{user.profileImg}}{{/user.profileImg}}{{^user.profileImg}}/images/default-profile.png{{/user.profileImg}}"
+                                 alt="프로필 이미지"
+                                 style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #e2e8f0;">
+                            <button type="button" id="deleteProfileBtn"
+                                    onclick="clearProfileImg()"
+                                    class="btn btn-sm position-absolute"
+                                    style="top: 0; right: 0; width: 24px; height: 24px; padding: 0; border-radius: 50%; background: #ef4444; color: #fff; font-size: 0.65rem; line-height: 1; border: 2px solid #fff;">
+                                <i class="fa fa-x"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <label class="form-label fw-semibold text-secondary small d-block">프로필 이미지 변경 <span class="text-muted fw-normal">(선택)</span></label>
+                            <input type="file" class="form-control" name="profileImg" id="profileImg"
+                                   accept="image/*"
+                                   style="border-radius: 10px; border-color: #e2e8f0; padding: 0.45rem 0.75rem;">
+                            <div class="form-text text-muted" style="font-size: 0.75rem;">JPG, PNG, GIF 등 이미지 파일 (최대 50MB)</div>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold text-secondary small">아이디</label>
                         <input type="text" class="form-control bg-light text-muted" name="username"
@@ -46,4 +69,21 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('profileImg').addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => document.getElementById('profilePreview').src = e.target.result;
+            reader.readAsDataURL(file);
+            document.getElementById('deleteProfileImgFlag').value = 'false';
+        }
+    });
+
+    function clearProfileImg() {
+        document.getElementById('profilePreview').src = '/images/default-profile.png';
+        document.getElementById('profileImg').value = '';
+        document.getElementById('deleteProfileImgFlag').value = 'true';
+    }
+</script>
 {{> layout/footer}}

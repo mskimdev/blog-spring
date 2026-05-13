@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +44,12 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/user/detail")
+    public String detail(Model mo, HttpSession session){
+        mo.addAttribute("user", session.getAttribute("sessionUser"));
+        return "user/detail";
+    }
+
     @GetMapping("/user/update-form")
     public String updateForm(Model mo, HttpSession session){
 
@@ -57,7 +65,7 @@ public class UserController {
         User updatedUser = us.update(sessionUser.getId(), updateDTO, session);
 
         session.setAttribute("sessionUser", updatedUser);
-        return "redirect:/";
+        return "redirect:/user/detail";
     }
 
     @GetMapping("/join-form")
@@ -66,7 +74,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(UserRequest.joinDTO joinDTO){
+    public String join(UserRequest.joinDTO joinDTO)  {
         joinDTO.validate();
 
         us.join(joinDTO);
